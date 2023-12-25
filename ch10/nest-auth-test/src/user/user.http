@@ -1,0 +1,35 @@
+
+POST http://localhost:3000/user/create
+content-type: application/json
+
+{
+  "username":"boo",
+  "password":"qwer",
+  "email":"boo2@test.com"
+}
+
+###
+GET http://localhost:3000/user/getUser/boo2@test.com
+
+###
+PUT http://localhost:3000/user/update/boo2@test.com
+content-type: application/json
+
+{
+  "email":"boo2@test.com",
+  "username":"boo2",
+  "password":"qwer12345"
+}
+
+###
+DELETE http://localhost:3000/user/delete/boo2@test.com
+
+### 잘못된 이메일을 입력한 경우
+POST http://localhost:3000/user/create
+content-type: application/json
+
+{
+  "username":"boo",
+  "password":"qwer",
+  "email":"boo-com"
+}
