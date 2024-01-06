@@ -54,3 +54,15 @@ export class AuthenticatedGuard implements CanActivate {
     return request.isAuthenticated();
   }
 }
+
+@Injectable()
+//google 스트래티지 사용
+export class GoogleAuthGuard extends AuthGuard('google') {
+  async canActive(context: any): Promise<boolean> {
+    //부모 클래스의 메서드 사용
+    const result = (await super.canActivate(context)) as boolean;
+    const request = context.switchToHttp().getRequest();
+    await super.logIn(request); //세션 적용
+    return result;
+  }
+}
