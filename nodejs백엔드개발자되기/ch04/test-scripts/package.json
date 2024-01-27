@@ -1,0 +1,22 @@
+{
+  "name": "test-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    //스크립트 실행 전과 후에 실행될 스크립트 지정할 수 있음
+    //pre, post를 붙임
+    //npm run hello 하면 prehello -> hello -> posthello 순으로 진행된다
+    "prehello": "echo 'PREHELLO Node.js'",
+    "hello": "echo 'hello Node.js'",
+    "posthello": "echo 'POSTHELLO Node.js'",
+    //start, stop, test, restart는 run 없이 바로 실행 가능
+    "test": "echo 'test Node.js'",
+    "stop": "echo 'stop Node.js'",
+    "start": "echo 'start Node.js'",
+    "restart": "echo 'restart Node.js'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
