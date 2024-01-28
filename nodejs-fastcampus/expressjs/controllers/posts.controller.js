@@ -1,0 +1,16 @@
+const path = require('path');
+
+console.log();
+function getPost(req, res) {
+  res.render('posts', {
+    templateName: 'post',
+  });
+
+  //파일 전송하기
+  // res.sendFile(path.join(__dirname, '..', 'public', 'images', 'sea.jpg'));
+  // res.send('<div><h1>Post Title</h1><p>This is a post</p></div>');
+}
+
+module.exports = {
+  getPost,
+};
