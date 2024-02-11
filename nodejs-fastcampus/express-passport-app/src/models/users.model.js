@@ -14,6 +14,11 @@ const userSchema = mongoose.Schema({
     unique: true,
     sparse: true,
   },
+  kakaoId: {
+    type: String,
+    unique: true,
+    sparse: true,
+  },
 });
 
 const saltRounds = 10;
@@ -30,6 +35,8 @@ userSchema.pre('save', function (next) {
         next();
       });
     });
+  } else {
+    next();
   }
 });
 
