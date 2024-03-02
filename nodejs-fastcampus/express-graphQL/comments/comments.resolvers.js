@@ -8,4 +8,10 @@ module.exports = {
       return commentsModel.getCommentsByLikes(args.minLikes);
     },
   },
+
+  Mutation: {
+    addComment: (_, args) => {
+      return commentsModel.addNewComment(args.id, args.text);
+    },
+  },
 };
