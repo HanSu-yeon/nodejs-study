@@ -2,7 +2,11 @@ const { makeExecutableSchema } = require('@graphql-tools/schema');
 const express = require('express');
 const { loadFilesSync } = require('@graphql-tools/load-files');
 const path = require('path');
-const { ApolloServer } = require('apollo-server-express');
+
+const { ApolloServer } = require('@apollo/server');
+const cors = require('cors');
+const { json } = require('body-parser');
+const { expressMiddleware } = require('@apollo/server/express4');
 const app = express();
 
 //모든 폴더안에서 graphql인 것을 가져와라
@@ -27,10 +31,15 @@ async function startApolloServer() {
   });
   //아폴로 서버가 시작될 때까지 기다립니다.
   await server.start();
-  //APOLLO 미들웨어와 익스프레스 서버 연결
-  // app express 서버를 connect 하고, incoming request를 처리할 graphql path
-  server.applyMiddleware({ app, path: '/graphql' });
 
+  app.use(
+    '/graphql',
+    cors(),
+    json(),
+    expressMiddleware(server, {
+      context: async ({ req }) => ({ token: req.header.token }),
+    })
+  );
   const port = 4000;
 
   app.listen(port, () => {
