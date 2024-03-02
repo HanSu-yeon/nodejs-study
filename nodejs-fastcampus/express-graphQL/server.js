@@ -2,7 +2,7 @@ const { makeExecutableSchema } = require('@graphql-tools/schema');
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { loadFilesSync } = require('@graphql-tools/load-files');
-
+const path = require('path');
 const app = express();
 
 //모든 폴더안에서 graphql인 것을 가져와라
@@ -10,8 +10,11 @@ const loadFiles = loadFilesSync('**/*', {
   extensions: ['graphql'],
 });
 
+const loadedResolvers = loadFilesSync(path.join(__dirname, '**/*.resolvers.js'));
+
 const schema = makeExecutableSchema({
   typeDefs: loadFiles,
+  resolvers: loadedResolvers,
 });
 
 //rootValue 생성
