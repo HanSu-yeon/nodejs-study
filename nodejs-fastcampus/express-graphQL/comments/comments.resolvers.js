@@ -1,7 +1,8 @@
+const commentsModel = require('./comments.model');
 module.exports = {
   Query: {
-    comments: async parent => {
-      return parent.comments;
+    comments: () => {
+      return commentsModel.getAllComments();
     },
   },
 };

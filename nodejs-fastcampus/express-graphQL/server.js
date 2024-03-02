@@ -17,17 +17,10 @@ const schema = makeExecutableSchema({
   resolvers: loadedResolvers,
 });
 
-//rootValue 생성
-const root = {
-  posts: require('./posts/posts.model'),
-  comments: require('./comments/comments.model'),
-};
-
 app.use(
   '/graphql',
   graphqlHTTP({
     schema: schema,
-    rootValue: root,
     graphiql: true, //graphiql 설정
   })
 );
