@@ -1,12 +1,12 @@
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
+const { loadFilesSync } = require('@graphql-tools/load-files');
 
 const app = express();
 
 //모든 폴더안에서 graphql인 것을 가져와라
-const loadFiles = loadedFiles('**/*', {
+const loadFiles = loadFilesSync('**/*', {
   extensions: ['graphql'],
 });
 
@@ -16,32 +16,8 @@ const schema = makeExecutableSchema({
 
 //rootValue 생성
 const root = {
-  posts: [
-    {
-      id: 'post1',
-      title: 'It is a first post',
-      description: 'It is a first post description',
-      comments: [
-        {
-          id: 'comment1',
-          text: 'It is a first comment',
-          likes: 1,
-        },
-      ],
-    },
-    {
-      id: 'post2',
-      title: 'It is a second post',
-      description: 'It is a second post description',
-    },
-  ],
-  comments: [
-    {
-      id: 'comment1',
-      text: 'It is a first comment',
-      likes: 1,
-    },
-  ],
+  posts: require('./posts/posts.model'),
+  comments: require('./comments/comments.model'),
 };
 
 app.use(
